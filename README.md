@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+# Calculadora de Notas - Proyecto No Code
+## Descripción del Proyecto
+Este proyecto es una Calculadora de Notas diseñada para facilitar el cálculo de la nota final de un estudiante en base a sus calificaciones y los porcentajes asignados a cada evaluación. La aplicación permite al usuario ingresar múltiples notas junto con el porcentaje que cada una representa del total, y luego calcular automáticamente la nota final ponderada.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Metodología No Code**
 
-Currently, two official plugins are available:
+Este proyecto fue desarrollado siguiendo una metodología **No Code**, lo que significa que la mayor parte de la lógica y el diseño de la aplicación se construyeron utilizando herramientas y componentes predefinidos. El objetivo es minimizar la intervención humana directa en el código, permitiendo que personas con conocimientos limitados de programación puedan desarrollar y mantener aplicaciones funcionales con facilidad.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Características Principales
 
-## Expanding the ESLint configuration
+- Interfaz Sencilla y Amigable: La aplicación cuenta con una interfaz simple que permite ingresar fácilmente las notas y sus respectivos porcentajes.
+- Cálculo Automático: Al hacer clic en el botón "Calcular Nota Final", la aplicación calcula automáticamente la nota final en base a los valores ingresados.
+- Visualización Clara: El usuario puede ver la nota final calculada de forma destacada en la pantalla.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Tecnologías Utilizadas
 
-- Configure the top-level `parserOptions` property like this:
+- React: Biblioteca de JavaScript para construir la interfaz de usuario.
+- Tailwind CSS: Framework de CSS para diseñar de manera rápida y eficiente.
+- Componentes UI: Uso de componentes preconstruidos para minimizar la necesidad de escribir código desde cero.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Requisitos
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Node.js y npm: Necesarios para correr la aplicación en un entorno de desarrollo.
+- React: El framework principal sobre el que se construyó la aplicación.
+- Tailwind CSS: Para estilos rápidos y consistentes.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Instalación
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Clona este repositorio en tu máquina local.
+- Navega al directorio del proyecto.
+- Ejecuta npm install para instalar las dependencias.
+- Ejecuta npm start para iniciar la aplicación en modo de desarrollo.
+- Abre http://localhost:3000 en tu navegador para ver la aplicación en funcionamiento.
