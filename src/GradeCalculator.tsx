@@ -26,12 +26,12 @@ export default function GradeCalculator() {
   return (
     <div className="min-h-screen bg-green-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold text-green-700 mb-6 text-center">Grade Calculator</h1>
+        <h1 className="text-2xl font-bold text-green-700 mb-6 text-center">Calculadora de Notas</h1>
         {grades.map((grade, index) => (
           <div key={index} className="mb-4 flex items-center space-x-4">
             <div className="flex-1">
               <Label htmlFor={`grade-${index}`} className="text-sm font-medium text-green-600">
-                Note {index + 1}
+                Nota {index + 1}
               </Label>
               <Input
                 id={`grade-${index}`}
@@ -43,7 +43,7 @@ export default function GradeCalculator() {
             </div>
             <div className="flex-1">
               <Label htmlFor={`percentage-${index}`} className="text-sm font-medium text-green-600">
-                Percentage
+                Porcentaje
               </Label>
               <Input
                 id={`percentage-${index}`}
@@ -59,11 +59,11 @@ export default function GradeCalculator() {
           onClick={calculateFinalGrade}
           className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white"
         >
-          Calculate Final Grade
+          Calcular Nota Final
         </Button>
         {finalGrade > 0 && (
           <div className="mt-6 text-center">
-            <h2 className="text-xl font-semibold text-green-700">Final Grade</h2>
+            <h2 className="text-xl font-semibold text-green-700">Nota Final</h2>
             <p className="text-3xl font-bold text-green-800">{finalGrade.toFixed(2)}</p>
           </div>
         )}
