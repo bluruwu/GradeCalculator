@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -8,14 +8,24 @@ import { PlusCircle, Trash2 } from 'lucide-react'
 interface Grade {
   value: number;
   percentage: number;
-  topic: string;
+  topic: string;  
 }
 
 export default function Component() {
   const [subject, setSubject] = useState<'Física' | 'Matemáticas' | 'Química' | ''>('')
-  const [grades, setGrades] = useState<Grade[]>([])
+  const [grades, setGrades] = useState<{ value: number; percentage: number; topic: string }[]>([])
   const [finalGrade, setFinalGrade] = useState(0)
   const [averageGrade, setAverageGrade] = useState(0)
+
+  useEffect(() => {
+    // Cargar datos desde el local storage
+    const storedData = localStorage.getItem('appData');
+    if (storedData) {
+      const { savedSubject, savedGrades } = JSON.parse(storedData);
+      setSubject(savedSubject);
+      setGrades(savedGrades);
+    }
+  }, []);
 
   // Temas por materia
   const topics: { [key in 'Física' | 'Matemáticas' | 'Química']: string[] } = {
@@ -40,14 +50,23 @@ export default function Component() {
 
   const addNote = () => {
     if (subject) {
-      setGrades([...grades, { value: 0, percentage: 0, topic: '' }])
+      const newGrades = [...grades, { value: 0, percentage: 0, topic: '' }];
+      setGrades(newGrades);
+      saveToLocalStorage(subject, newGrades);
     }
   }
 
   const removeNote = (index: number) => {
-    const updatedGrades = grades.filter((_, i) => i !== index)
-    setGrades(updatedGrades)
+    const updatedGrades = grades.filter((_, i) => i !== index);
+    setGrades(updatedGrades);
+    saveToLocalStorage(subject, updatedGrades);
   }
+
+  const saveToLocalStorage = (subject: string | undefined, grades: { value: number; percentage: number; topic: string }[]) => {
+    const data = { savedSubject: subject, savedGrades: grades };
+    localStorage.setItem('appData', JSON.stringify(data));
+  }
+
 
   const calculateFinalGrade = () => {
     // Verifica que todos los temas estén seleccionados
