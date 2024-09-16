@@ -44,7 +44,6 @@ export default function Component() {
 
 
 
-
   useEffect(() => {
     // Cargar datos desde el local storage
     const storedData = localStorage.getItem('appData');
