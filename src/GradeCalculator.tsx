@@ -45,14 +45,16 @@ export default function Component() {
 
 
   useEffect(() => {
-    // Cargar datos desde el local storage
-    const storedData = localStorage.getItem('appData');
-    if (storedData) {
-      const { savedSubject, savedGrades } = JSON.parse(storedData);
-      setSubject(savedSubject);
-      setGrades(savedGrades);
+    // Al cargar la aplicación, intentar cargar las notas de la materia seleccionada
+    if (subject) {
+      const storedData = localStorage.getItem('appData');
+      if (storedData) {
+        const allSubjectsData = JSON.parse(storedData);
+        const subjectGrades = allSubjectsData[subject] || [];
+        setGrades(subjectGrades);
+      }
     }
-  }, []);
+  }, [subject]);
 
   // Temas por materia
   const topics: { [key in 'Física' | 'Matemáticas' | 'Química']: string[] } = {
@@ -103,19 +105,26 @@ export default function Component() {
     if (subject) {
       const newGrades = [...grades, { value: 0, percentage: 0, topic: '' }];
       setGrades(newGrades);
-      saveToLocalStorage(subject, newGrades);
+      //saveToLocalStorage(subject, newGrades);
     }
   }
 
   const removeNote = (index: number) => {
-    const updatedGrades = grades.filter((_, i) => i !== index);
-    setGrades(updatedGrades);
-    saveToLocalStorage(subject, updatedGrades);
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta nota?");
+    if (confirmDelete) {
+      const updatedGrades = grades.filter((_, i) => i !== index);
+      setGrades(updatedGrades);
+      saveToLocalStorage(updatedGrades); // Guardar las notas actualizadas en local storage
+    }
   }
 
-  const saveToLocalStorage = (subject: string | undefined, grades: { value: number; percentage: number; topic: string }[]) => {
-    const data = { savedSubject: subject, savedGrades: grades };
-    localStorage.setItem('appData', JSON.stringify(data));
+  const saveToLocalStorage = (updatedGrades: { value: number; percentage: number; topic: string }[]) => {
+    if (subject) {
+      const storedData = localStorage.getItem('appData');
+      const allSubjectsData = storedData ? JSON.parse(storedData) : {};
+      allSubjectsData[subject] = updatedGrades; // Guardar las notas de la materia actual
+      localStorage.setItem('appData', JSON.stringify(allSubjectsData));
+    }
   }
 
 
@@ -138,6 +147,8 @@ export default function Component() {
     setAverageGrade(average)
     setIsFinalGradeCalculated(true);
 
+
+    saveToLocalStorage(grades);
   }
 
   const handleSubjectChange = (newSubject: 'Física' | 'Matemáticas' | 'Química' | '') => {
